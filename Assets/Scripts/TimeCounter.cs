@@ -7,8 +7,8 @@ public class TimeCounter : MonoBehaviour
 {
     Text timeUI;
 
-    float startTime; // kad se klikne play
-    float ellapsedTime; // posle klika
+    float startTime; 
+    float ellapsedTime; 
     bool startCounter;
 
     int minutes;

@@ -5,29 +5,27 @@ using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
-    public GameObject GameManagerGO; // gm
+    public GameObject GameManagerGO; 
 
-    public GameObject PlayerBulletGO; // prefab za metak
+    public GameObject PlayerBulletGO; 
     public GameObject bulletPosition01;
     public GameObject bulletPosition02;
 
     public GameObject ExplosionGO;
 
-    public float speed;  // za brzinu naseg broda
+    public float speed;  
 
-    public Text LivesUIText; // referenca ka zivotima
+    public Text LivesUIText; 
     const int MAX_LIVES = 3;
-    int lives; // trenutni zivoti
+    int lives; 
 
     public void Init()
     {
         lives = MAX_LIVES;
         LivesUIText.text = lives.ToString();
 
-        // reset na center ekrana igraca
         transform.position = new Vector2(0, 0);
 
-        // postavi na aktivnog
         gameObject.SetActive(true);
     }
 
@@ -40,61 +38,51 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // pucamo na space
+        
         if (Input.GetKeyDown("space"))
         {
             GetComponent<AudioSource>().Play();
 
-            // instanciramo metak
             GameObject bullet01 = (GameObject)Instantiate(PlayerBulletGO);
-            bullet01.transform.position = bulletPosition01.transform.position; // inicijalna pozicija
+            bullet01.transform.position = bulletPosition01.transform.position; 
 
             GameObject bullet02 = (GameObject)Instantiate(PlayerBulletGO);
             bullet02.transform.position = bulletPosition02.transform.position;
         }
 
-        float x = Input.GetAxisRaw("Horizontal"); // -1 0 1 levo nista desno
-        float y = Input.GetAxisRaw("Vertical"); // -1 0 1 dole nista gore
+        float x = Input.GetAxisRaw("Horizontal"); 
+        float y = Input.GetAxisRaw("Vertical"); 
 
-        // u zavisnosti od unosa, pravimo direction vector -> a zatim ga normalizujemo u unit vector
         Vector2 direction = new Vector2(x, y).normalized;
 
-        // sad funkcija koja racuna i setuje player poziciju
         Move(direction);
     }
 
     public void Move(Vector2 direction)
     {
-        // da ogranicimo kuda moze da ide - nadjemo ivice ekrana (coskove)
-        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // dole levo
-        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // gore desno
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); 
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); 
 
-        // visina i sirina naseg broda isto se uzima u obzir
+        
 
-        max.x = max.x - 0.0225f; // pola sirine onog sprajta
+        max.x = max.x - 0.0225f; 
         min.x = min.x + 0.225f;
 
         max.y = max.y - 0.285f;
         min.y = min.y + 0.285f;
 
-        // trenutna pozicija broda
         Vector2 pos = transform.position;
 
-        // nova pozicija
         pos += direction * speed * Time.deltaTime;
 
-        // ne sme van ekrana
         pos.x = Mathf.Clamp(pos.x, min.x, max.x);
         pos.y = Mathf.Clamp(pos.y, min.y, max.y);
 
-        // update
         transform.position = pos;
     }
 
-    // trigerovace se kad dodje do kolizije game objectsa
     void OnTriggerEnter2D(Collider2D col)
     {
-        // sa protivnickim brodom ili metkovima
         if ((col.tag == "EnemyShipTag") || (col.tag == "EnemyBulletTag"))
         {
             PlayExplosion();
@@ -104,10 +92,8 @@ public class PlayerControl : MonoBehaviour
 
             if (lives == 0)
             {
-                // gm state na gameover
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameover);
 
-                // Destroy(gameObject); // unistimo nas brod --- sakricemo ga
                 gameObject.SetActive(false);
             }
         }

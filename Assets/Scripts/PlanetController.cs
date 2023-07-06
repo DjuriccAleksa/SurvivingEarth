@@ -6,13 +6,11 @@ public class PlanetController : MonoBehaviour
 {
     public GameObject[] Planets;
 
-    //Queue za planete
     Queue<GameObject> availablePlanes = new Queue<GameObject> ();
 
     // Start is called before the first frame update
     void Start()
     {
-        // dodaj u red
         availablePlanes.Enqueue(Planets[0]);
         availablePlanes.Enqueue(Planets[1]);
         availablePlanes.Enqueue(Planets[2]);
@@ -26,7 +24,6 @@ public class PlanetController : MonoBehaviour
         
     }
 
-    // dequeue i set moving na true
     void MovePlanetDown()
     {
         EnqueuePlanets();
@@ -38,12 +35,10 @@ public class PlanetController : MonoBehaviour
         aPlanet.GetComponent<Planet>().isMoving = true;
     }
 
-    // enqueue one koje su ispod ekrana i ne krecu se
     void EnqueuePlanets()
     {
         foreach(GameObject aPlanet in Planets)
         {
-            // ako je ispod ekrana, reci da se ne mrda
             if((aPlanet.transform.position.y < 0) && (!aPlanet.GetComponent<Planet>().isMoving))
             {
                 // restartuj poziciju

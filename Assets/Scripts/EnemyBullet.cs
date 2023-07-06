@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     float speed;
-    Vector2 _direction; // za pravac metka
-    bool isReady; // kada je direction metka setovan
+    Vector2 _direction;
+    bool isReady; 
 
-    //default vrednosti u Awake funkciji
+    
     void Awake()
     {
         speed = 5f;
@@ -21,29 +21,22 @@ public class EnemyBullet : MonoBehaviour
         
     }
 
-    // da postavi pravac metka
     public void SetDirection(Vector2 direction)
     {
-        // mora normalizovano, kako bi se dobio unit vektor
         _direction = direction.normalized;
         isReady = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isReady)
         {
-            //trenutna poz
             Vector2 position = transform.position;
 
-            // izracunaj novu
             position += _direction * speed * Time.deltaTime;
 
-            // update
             transform.position = position;
 
-            // ako izadje sa ekrana - remove
             Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
             Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
@@ -59,7 +52,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if ((col.tag == "PlayerShipTag"))
         {
-            Destroy(gameObject); // unistimo nas brod
+            Destroy(gameObject); 
         }
     }
 }

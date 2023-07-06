@@ -7,14 +7,13 @@ public class StarGenerator : MonoBehaviour
     public GameObject StarGO;
     public int MaxStars;
 
-    // boje 
     Color[] starColors =
     {
-        new Color(0.5f,0.5f,1f), // plava
-        new Color(0,1f,1f), // zelena
-        new Color(1f,1f,0), // zuta
+        new Color(0.5f,0.5f,1f),
+        new Color(0,1f,1f), 
+        new Color(1f,1f,0), 
         new Color(1f,0,0)
-    };// crvena
+    };
 
     // Start is called before the first frame update
     void Start()

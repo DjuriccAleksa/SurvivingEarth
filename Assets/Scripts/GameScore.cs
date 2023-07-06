@@ -23,11 +23,9 @@ public class GameScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // uzme text ui komponentu ovog game objecta
         scoreTextUI = GetComponent<Text>();
     }
 
-    // azurira score text ui
     void UpdateScoreTextUI()
     {
         string scoreStr = string.Format("{0:0000000}", score);

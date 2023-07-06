@@ -21,7 +21,6 @@ public class Star : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
-        // ako izadje sa ekrana, onda je vrati gore negde random
         if(transform.position.y < min.y)
         {
             transform.position = new Vector2(Random.Range(min.x, max.x), max.y);

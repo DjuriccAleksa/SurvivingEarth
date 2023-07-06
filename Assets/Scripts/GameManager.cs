@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
         GMState = GameManagerState.Opening;
     }
 
-    // update gm state
 
     void UpdateGameManagerState()
     {

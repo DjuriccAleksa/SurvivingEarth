@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
-    float speed; // brzina neprijatelja
+    float speed; 
 
-    GameObject scoreUITextGO; // kada umre enemy, azuriramo score
+    GameObject scoreUITextGO; 
     public GameObject ExplosionGO;
 
     // Start is called before the first frame update
@@ -19,16 +19,12 @@ public class EnemyControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // trenutna pozicija
         Vector2 position = transform.position;
 
-        // izracunaj novu poz
         position = new Vector2(position.x, position.y - speed * Time.deltaTime);
 
-        // update
         transform.position = position;
 
-        // donje leva ivica
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
 
         if (transform.position.y < min.y)
@@ -45,7 +41,7 @@ public class EnemyControl : MonoBehaviour
 
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
 
-            Destroy(gameObject); // unistimo nas brod
+            Destroy(gameObject); 
         }
     }
 
